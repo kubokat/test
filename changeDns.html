@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body>
+
+<!-- Begin page content -->
+<main role="main" class="container">
+    <h1>Change DNS</h1>
+    <form class="row g-3 needs-validation" novalidate>
+        <input type="hidden" name="action" value="change_dns">
+
+        <div class="col-md-12">
+            <label class="form-label">NS1</label>
+            <input name="nservers[]" type="text" class="form-control" required>
+        </div>
+
+        <div class="col-md-12">
+            <label class="form-label">NS2</label>
+            <input name="nservers[]" type="text" class="form-control" required>
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-primary">Submit form</button>
+        </div>
+
+        <div id="result" class="col-12">
+
+        </div>
+    </form>
+</main>
+
+<script type="text/javascript">
+    const button = document.querySelector('button');
+
+    button.addEventListener('click', e => {
+        e.preventDefault();
+
+        fetch("index.php", {
+            body: new FormData(document.querySelector('form')),
+            method: "post",
+        })
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('result').innerHTML = html;
+            });
+    });
+
+</script>
+</body>
+</html>
